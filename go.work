@@ -6,4 +6,5 @@ use (
 	./crypto-bot
 	./image-bot
 	./ping-pong-bot
+	./youtube-bot
 )
