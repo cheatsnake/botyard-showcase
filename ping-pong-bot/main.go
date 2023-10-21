@@ -25,7 +25,7 @@ func messageHandler(msg botyard.Message) {
 
 	switch msg.Body {
 	case "/start":
-		reply = "Hello!\n\nLet's play with me using /ping command."
+		reply = "👋 Hello! I like ping pong.\n\nLet's play with me using /ping command."
 	case "/ping":
 		reply = "P" + strings.Repeat("O", rand.Intn(10-1)+1) + "NG"
 	default:

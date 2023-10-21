@@ -29,7 +29,7 @@ func messageHandler(msg botyard.Message) {
 
 	switch msg.Body {
 	case "/start":
-		reply = "Hello!\n\nI can generate random images for you."
+		reply = "👋 Welcome!\n\nI can generate random images for you."
 	case "/generate_pixelart":
 		reply = "🎨 Random pixel image specially for you:"
 		buf, err := newPixelart(512, 512, 32)
