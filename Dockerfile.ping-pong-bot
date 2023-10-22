@@ -1,0 +1,10 @@
+FROM golang:1.21
+WORKDIR /app
+ADD . .
+ENV CGO_ENABLED=0
+RUN go build -o main ./ping-pong-bot/*.go
+
+FROM scratch
+COPY --from=0 ./app/main .
+EXPOSE 4000
+CMD [ "/main" ]

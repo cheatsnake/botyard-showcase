@@ -1,0 +1,5 @@
+.env
+.gitignore
+Makefile
+README.md
+botyard.config.json

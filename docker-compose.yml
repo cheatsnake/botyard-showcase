@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+    ping-pong-bot:
+        container_name: ping-pong-bot
+        image: ping-pong-bot
+        environment:
+            - PING_PONG_BOT_KEY=${PING_PONG_BOT_KEY}
+            - API_HOST=${API_HOST}
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile.ping-pong-bot
+        networks:
+            - botyard
+
+    crypto-bot:
+        container_name: crypto-bot
+        image: crypto-bot
+        environment:
+            - CRYPTO_BOT_KEY=${CRYPTO_BOT_KEY}
+            - API_HOST=${API_HOST}
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile.crypto-bot
+        networks:
+            - botyard
+
+    calculator-bot:
+        container_name: calculator-bot
+        image: calculator-bot
+        environment:
+            - CALCULATOR_BOT_KEY=${CALCULATOR_BOT_KEY}
+            - API_HOST=${API_HOST}
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile.calculator-bot
+        networks:
+            - botyard
+
+    image-bot:
+        container_name: image-bot
+        image: image-bot
+        environment:
+            - IMAGE_BOT_KEY=${IMAGE_BOT_KEY}
+            - API_HOST=${API_HOST}
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile.image-bot
+        networks:
+            - botyard
+
+    youtube-bot:
+        container_name: youtube-bot
+        image: youtube-bot
+        environment:
+            - YOUTUBE_BOT_KEY=${YOUTUBE_BOT_KEY}
+            - API_HOST=${API_HOST}
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile.youtube-bot
+        networks:
+            - botyard
+
+networks:
+    botyard:
+        external: true
