@@ -1,0 +1,29 @@
+{
+    "service": {
+        "name": "Botyard showcase",
+        "description": "Demo for the Botyard platform. Here you can see how the platform works on the example of prepared simple bots. Be sure to follow the links above for more information.",
+        "avatar": "https://raw.githubusercontent.com/cheatsnake/botyard/070275cc31a5fc19c3421ab424b90ee08ce1ad23/docs/images/logo.svg",
+        "socials": [
+            { "title": "Documentation", "url": "https://yurace.pro/botyard" },
+            { "title": "GitHub", "url": "https://github.com/cheatsnake/botyard" },
+            { "title": "Source code", "url": "https://github.com/cheatsnake/botyard-showcase" }
+        ]
+    },
+    "limits": {
+        "user": {
+            "minNicknameLength": 3,
+            "maxNicknameLength": 32,
+            "authTokenLifetime": 10080
+        },
+        "message": {
+            "maxBodyLength": 4096,
+            "maxAttachedFiles": 5
+        },
+        "file": {
+            "maxImageSize": 20480,
+            "maxAudioSize": 0,
+            "maxVideoSize": 0,
+            "maxFileSize": 0
+        }
+    }
+}
