@@ -6,17 +6,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
-
-const port = "4000"
-const botKey = "PASTE_BOT_KEY_HERE"
 
 func main() {
 	http.HandleFunc("/webhook", webhookHandler)
 
 	fmt.Println("Bot is running...")
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+"80", nil))
 }
 
 func messageHandler(msg botyard.Message) {
@@ -62,7 +60,7 @@ func messageHandler(msg botyard.Message) {
 		videoStore.mu.Unlock()
 	}
 
-	botyard.SendMessage(msg.ChatId, reply, nil, botKey)
+	botyard.SendMessage(msg.ChatId, reply, nil, os.Getenv("YOUTUBE_BOT_KEY"))
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {

@@ -8,6 +8,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
+	"os"
 	"strings"
 )
 
@@ -28,7 +29,7 @@ type Attachment struct {
 	MimeType string `json:"mimeType"`
 }
 
-const BotAPI = "http://localhost:7007/v1/bot-api"
+const BotAPI = "/v1/bot-api"
 
 func SendMessage(chatId, body string, attachmentIds []string, botKey string) {
 	jsonBody, err := json.Marshal(&Message{
@@ -38,15 +39,17 @@ func SendMessage(chatId, body string, attachmentIds []string, botKey string) {
 	})
 	if err != nil {
 		fmt.Printf("can't marshal json %s\n", err.Error())
+		return
 	}
 
 	req, err := http.NewRequest(
 		http.MethodPost,
-		BotAPI+"/chat/message",
+		os.Getenv("API_HOST")+BotAPI+"/chat/message",
 		bytes.NewBuffer(jsonBody),
 	)
 	if err != nil {
 		fmt.Printf("can't make a new request %s\n", err.Error())
+		return
 	}
 
 	req.Header.Add("Content-Type", "application/json")
@@ -55,6 +58,7 @@ func SendMessage(chatId, body string, attachmentIds []string, botKey string) {
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		fmt.Printf("can't send message to user %s\n", err.Error())
+		return
 	}
 	defer resp.Body.Close()
 
@@ -87,7 +91,7 @@ func UploadFile(content *bytes.Buffer, filename, botKey string) ([]Attachment, e
 
 	writer.Close()
 
-	req, err := http.NewRequest("POST", BotAPI+"/files", body)
+	req, err := http.NewRequest("POST", os.Getenv("API_HOST")+BotAPI+"/files", body)
 	if err != nil {
 		return nil, err
 	}

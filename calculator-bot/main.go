@@ -6,19 +6,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 
 	"github.com/maja42/goval"
 )
 
-const port = "4000"
-const botKey = "PASTE_BOT_KEY_HERE"
-
 func main() {
 	http.HandleFunc("/webhook", webhookHandler)
 
 	fmt.Println("Bot is running...")
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+"80", nil))
 }
 
 var zeroDiv = regexp.MustCompile(`\d+\s*/\s*0`)
@@ -51,7 +49,7 @@ func messageHandler(msg botyard.Message) {
 		reply = fmt.Sprintf("%v", result)
 	}
 
-	botyard.SendMessage(msg.ChatId, reply, nil, botKey)
+	botyard.SendMessage(msg.ChatId, reply, nil, os.Getenv("CALCULATOR_BOT_KEY"))
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {

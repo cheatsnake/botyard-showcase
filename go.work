@@ -1,10 +1,10 @@
 go 1.21.0
 
 use (
-	./bot-calculator
 	./botyard
-	./crypto-bot
 	./image-bot
-	./ping-pong-bot
+	./crypto-bot
 	./youtube-bot
+	./ping-pong-bot
+	./calculator-bot
 )

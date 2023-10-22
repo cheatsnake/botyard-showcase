@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 )
 
@@ -22,9 +23,6 @@ type Stage struct {
 	Body   string
 	Action uint8
 }
-
-const port = "4000"
-const botKey = "PASTE_BOT_KEY_HERE"
 
 const storeSize = 64 // How many user stages can store at once
 const (
@@ -75,7 +73,7 @@ func main() {
 	})
 
 	fmt.Println("Bot is running...")
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+"80", nil))
 }
 
 func messageHandler(msg botyard.Message) {
@@ -146,7 +144,7 @@ func messageHandler(msg botyard.Message) {
 	}
 
 	stageStore.mu.Unlock()
-	botyard.SendMessage(msg.ChatId, reply, nil, botKey)
+	botyard.SendMessage(msg.ChatId, reply, nil, os.Getenv("CRYPTO_BOT_KEY"))
 }
 
 func checkStoreSize(currentUserId string) {

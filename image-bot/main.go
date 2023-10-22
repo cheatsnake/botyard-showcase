@@ -6,10 +6,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
-
-const port = "4000"
-const botKey = "PASTE_BOT_KEY_HERE"
 
 const (
 	errorMsg      = "Sorry, something went wrong, try again later..."
@@ -20,7 +18,7 @@ func main() {
 	http.HandleFunc("/webhook", webhookHandler)
 
 	fmt.Println("Bot is running...")
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+"80", nil))
 }
 
 func messageHandler(msg botyard.Message) {
@@ -39,7 +37,7 @@ func messageHandler(msg botyard.Message) {
 			break
 		}
 
-		attach, err := botyard.UploadFile(buf, "pixelart.png", botKey)
+		attach, err := botyard.UploadFile(buf, "pixelart.png", os.Getenv("IMAGE_BOT_KEY"))
 		if err != nil {
 			fmt.Println(err)
 			reply = errorMsg
@@ -56,7 +54,7 @@ func messageHandler(msg botyard.Message) {
 			break
 		}
 
-		attach, err := botyard.UploadFile(buf, "gradient.png", botKey)
+		attach, err := botyard.UploadFile(buf, "gradient.png", os.Getenv("IMAGE_BOT_KEY"))
 		if err != nil {
 			fmt.Println(err)
 			reply = errorMsg
@@ -73,7 +71,7 @@ func messageHandler(msg botyard.Message) {
 			break
 		}
 
-		attach, err := botyard.UploadFile(buf, "qrcode.png", botKey)
+		attach, err := botyard.UploadFile(buf, "qrcode.png", os.Getenv("IMAGE_BOT_KEY"))
 		if err != nil {
 			fmt.Println(err)
 			reply = errorMsg
@@ -85,7 +83,7 @@ func messageHandler(msg botyard.Message) {
 		reply = unknownCmdMsg
 	}
 
-	botyard.SendMessage(msg.ChatId, reply, attachmentIds, botKey)
+	botyard.SendMessage(msg.ChatId, reply, attachmentIds, os.Getenv("IMAGE_BOT_KEY"))
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
